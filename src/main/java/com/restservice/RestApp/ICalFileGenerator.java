@@ -15,15 +15,17 @@ public class ICalFileGenerator {
     private String calBegin =   "BEGIN:VCALENDAR\r\n";
     private String calEnd =     "END:VCALENDAR\r\n";
 
-    private String fileName =   "kalendarzWeeiaMiesiac";
+    private String fileName =   "kalendarzWeeia_";
     private String fileExtension = ".ics";
 
-    private String eventStart = "DTSTART:2019";
-    private String eventEnd = "DTEND:2019";
+    private String eventStart = "DTSTART:";
+    private String eventEnd = "DTEND:";
 
-    public void writeToFile(String month, List<String> days, List<String> eventsName){
+    public void writeToFile(String month, List<String> days, List<String> eventsName, String year){
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(fileName);
+        stringBuilder.append(year);
+        stringBuilder.append("_");
         stringBuilder.append(month);
         stringBuilder.append(fileExtension);
 
@@ -44,11 +46,11 @@ public class ICalFileGenerator {
                 bufferedWriter.write("BEGIN:VEVENT\r\n");
                 if(days.get(i).length() < 2){
                     System.out.println(days.get(i));
-                    bufferedWriter.write(eventStart + month + "0" + days.get(i) + "\r\n");
-                    bufferedWriter.write(eventEnd + month + "0" + days.get(i) + "\r\n");
+                    bufferedWriter.write(eventStart + year + month + "0" + days.get(i) + "\r\n");
+                    bufferedWriter.write(eventEnd + year + month + "0" + days.get(i) + "\r\n");
                 } else {
-                    bufferedWriter.write(eventStart + month + days.get(i) + "\r\n");
-                    bufferedWriter.write(eventEnd + month + days.get(i) + "\r\n");
+                    bufferedWriter.write(eventStart + year + month + days.get(i) + "\r\n");
+                    bufferedWriter.write(eventEnd + year + month + days.get(i) + "\r\n");
                 }
                 bufferedWriter.write("SUMMARY:" + eventsName.get(i) + "\r\n");
                 System.out.println(eventsName.get(i));

@@ -43,7 +43,7 @@ public class CalendarWeeia {
             event.add(e.text());
 
         ICalFileGenerator ical = new ICalFileGenerator();
-        ical.writeToFile(month, dates, event);
+        ical.writeToFile(month, dates, event, year);
 
         return document.outerHtml();
 
