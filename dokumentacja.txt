@@ -1,0 +1,8 @@
+Api pobierające kalendarz ze strony weeia.p.lodz.pl oraz generujące na jego podstawie plik z rozszerzeniem ics
+
+zawiera jeden endpoint
+Calendar/{year}/{month}
+
+np: localhost/Calendar/2019/11
+
+w przypadku gdy miesiac nie jest z przedzialu <1,12> lub rok nie jest z przedzialu <1900,2100> wyświetla stosowny komunikat

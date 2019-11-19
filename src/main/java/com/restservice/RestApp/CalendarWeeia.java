@@ -24,12 +24,12 @@ import java.util.List;
 public class CalendarWeeia {
 
 
-    @RequestMapping("Calendar/2019/{month}")
-    public String getCalendar(@PathVariable String month) throws IOException {
-        if(!isMonthCorrect(month)){
-            return "Month should be a number between 1 and 12";
+    @RequestMapping("Calendar/{year}/{month}")
+    public String getCalendar(@PathVariable String month, @PathVariable String year) throws IOException {
+        if(!isMonthCorrect(month) || !isYearCorrect(year)){
+            return "Month should be a number between 1 and 12\nYear should be number between 1900-2100";
         }
-        String url = "http://www.weeia.p.lodz.pl/pliki_strony_kontroler/kalendarz.php?rok=2019&miesiac=" + month + "&lang=1";
+        String url = "http://www.weeia.p.lodz.pl/pliki_strony_kontroler/kalendarz.php?rok=" + year + "&miesiac=" + month + "&lang=1";
         Document document;
         document = Jsoup.parse(new URL(url), 10000);
         Elements html = document.select("a.active");
@@ -59,6 +59,21 @@ public class CalendarWeeia {
         }
 
         if(s < 1 || s > 12)
+            return false;
+        else
+            return true;
+    }
+
+    public boolean isYearCorrect(String year){
+        int s;
+        try{
+            s = Integer.parseInt(year);
+        }
+        catch(NumberFormatException e){
+            return false;
+        }
+
+        if(s < 1900 || s > 2100)
             return false;
         else
             return true;
